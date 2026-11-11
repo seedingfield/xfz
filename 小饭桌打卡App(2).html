@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+
+<!-- ===== PWA / 添加到主屏幕 关键元信息 ===== -->
+<meta name="theme-color" content="#007aff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="小饭桌打卡">
+<meta name="application-name" content="小饭桌打卡">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSIjMDA3YWZmIi8+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjIzNSIgcj0iMTEwIiBmaWxsPSIjZmZmIi8+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjIzNSIgcj0iODAiIGZpbGw9IiNmNWY1ZjUiLz4KPHJlY3QgeD0iMjQ2IiB5PSIxMjAiIHdpZHRoPSIyMCIgaGVpZ2h0PSI3MCIgcng9IjEwIiBmaWxsPSIjZmZmIi8+CjxyZWN0IHg9IjIyOCIgeT0iMTAwIiB3aWR0aD0iNiIgaGVpZ2h0PSI5MCIgcng9IjMiIGZpbGw9IiNmZmYiLz4KPHJlY3QgeD0iMjc4IiB5PSIxMDAiIHdpZHRoPSI2IiBoZWlnaHQ9IjkwIiByeD0iMyIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNMTYwIDM2MCBxOTYgNjAgMTkyIDAgdjMwIHEtOTYgNTAgLTE5MiAwIHoiIGZpbGw9IiNmZmYiLz4KPC9zdmc+">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIuWwj+mlreahjOaJk+WNoSIsICJzaG9ydF9uYW1lIjogIuWwj+mlreahjCIsICJkZXNjcmlwdGlvbiI6ICLlsI/ppa3moYzljYjppJDmmZrppJDmiZPljaHjgIHmnIjnu5/orqHjgIHlpIfku73mgaLlpI0iLCAic3RhcnRfdXJsIjogIi4iLCAic2NvcGUiOiAiLiIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjZjVmNWY1IiwgInRoZW1lX2NvbG9yIjogIiMwMDdhZmYiLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhkcFpIUm9QU0kxTVRJaUlHaGxhV2RvZEQwaU5URXlJaUIyYVdWM1FtOTRQU0l3SURBZ05URXlJRFV4TWlJK0NqeHlaV04wSUhkcFpIUm9QU0kxTVRJaUlHaGxhV2RvZEQwaU5URXlJaUJ5ZUQwaU1URXlJaUJtYVd4c1BTSWpNREEzWVdabUlpOCtDanhqYVhKamJHVWdZM2c5SWpJMU5pSWdZM2s5SWpJek5TSWdjajBpTVRFd0lpQm1hV3hzUFNJalptWm1JaTgrQ2p4amFYSmpiR1VnWTNnOUlqSTFOaUlnWTNrOUlqSXpOU0lnY2owaU9EQWlJR1pwYkd3OUlpTm1OV1kxWmpVaUx6NEtQSEpsWTNRZ2VEMGlNalEySWlCNVBTSXhNakFpSUhkcFpIUm9QU0l5TUNJZ2FHVnBaMmgwUFNJM01DSWdjbmc5SWpFd0lpQm1hV3hzUFNJalptWm1JaTgrQ2p4eVpXTjBJSGc5SWpJeU9DSWdlVDBpTVRBd0lpQjNhV1IwYUQwaU5pSWdhR1ZwWjJoMFBTSTVNQ0lnY25nOUlqTWlJR1pwYkd3OUlpTm1abVlpTHo0S1BISmxZM1FnZUQwaU1qYzRJaUI1UFNJeE1EQWlJSGRwWkhSb1BTSTJJaUJvWldsbmFIUTlJamt3SWlCeWVEMGlNeUlnWm1sc2JEMGlJMlptWmlJdlBnbzhjR0YwYUNCa1BTSk5NVFl3SURNMk1DQnhPVFlnTmpBZ01Ua3lJREFnZGpNd0lIRXRPVFlnTlRBZ0xURTVNaUF3SUhvaUlHWnBiR3c5SWlObVptWWlMejRLUEM5emRtYysiLCAic2l6ZXMiOiAiYW55IiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSJ9XX0=">
+
+<title>小饭桌打卡</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-size:16px;-webkit-tap-highlight-color:transparent;}
+html,body{overscroll-behavior-y:contain;}
+body{padding:15px;padding-top:calc(15px + env(safe-area-inset-top));padding-bottom:calc(15px + env(safe-area-inset-bottom));background:#f5f5f5;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+.box{background:#fff;padding:15px;border-radius:12px;margin-bottom:15px;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+h3{font-size:18px;margin-bottom:6px;}
+input,select{width:100%;padding:11px;margin:8px 0;border:1px solid #ccc;border-radius:8px;font-size:16px;}
+select{background:#fff;}
+button{width:100%;padding:13px;border:none;border-radius:8px;background:#007aff;color:#fff;margin:6px 0;font-size:16px;cursor:pointer;}
+button:active{opacity:.75;}
+.btn-green{background:#34c759;}
+.btn-orange{background:#ff9500;}
+.btn-red{background:#ff3b30;}
+.btn-gray{background:#888;}
+#list{max-height:280px;overflow-y:auto;margin-top:10px;}
+.item{padding:10px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.item .info{flex:1;line-height:1.5;}
+.stat{padding:12px;background:#f0f8ff;border-radius:8px;margin-top:8px;line-height:1.8;}
+.row{display:flex;gap:8px;}
+.row button{flex:1;}
+.seg-group{display:flex;gap:6px;margin:8px 0;}
+.seg-item{flex:1;text-align:center;padding:11px;border:1px solid #ccc;border-radius:8px;cursor:pointer;background:#fff;}
+.seg-item.active{background:#007aff;color:#fff;border-color:#007aff;}
+.date-row{display:flex;gap:6px;}
+.date-row select{flex:1;margin:0;}
+textarea{width:100%;min-height:180px;padding:10px;border:1px solid #ccc;border-radius:8px;font-size:14px;}
+.badge{display:inline-block;padding:2px 8px;border-radius:5px;font-size:13px;margin-left:6px;}
+.badge-lunch{background:#e8f5e9;color:#2e7d32;}
+.badge-dinner{background:#e3f2fd;color:#1565c0;}
+.badge-eat{background:#e8f5e9;color:#388e3c;}
+.badge-leave{background:#fff3e0;color:#e65100;}
+.tip{font-size:13px;color:#999;margin-top:6px;line-height:1.5;}
+header.app{position:sticky;top:0;background:#007aff;color:#fff;margin:-15px -15px 15px;padding:14px 15px;padding-top:calc(14px + env(safe-area-inset-top));font-size:18px;font-weight:600;text-align:center;z-index:10;}
+</style>
+</head>
+<body>
+<header class="app">🍚 小饭桌打卡</header>
+
+<!-- 打卡录入 -->
+<div class="box">
+    <h3>打卡录入</h3>
+    <div style="padding:10px;background:#eee;border-radius:8px;margin:8px 0;">学生：田若汐</div>
+    <div class="date-row">
+        <select id="signY"></select>
+        <select id="signM"></select>
+        <select id="signD"></select>
+    </div>
+    <div class="row">
+        <button class="btn-gray" onclick="resetToday()">一键回到当天</button>
+    </div>
+
+    <div style="margin-top:10px;">
+        <div style="margin:8px 0 4px;">餐次</div>
+        <div class="seg-group" id="mealSeg">
+            <div class="seg-item active" onclick="setMeal('午餐',this)">午餐</div>
+            <div class="seg-item" onclick="setMeal('晚餐',this)">晚餐</div>
+        </div>
+    </div>
+
+    <div>
+        <div style="margin:8px 0 4px;">状态</div>
+        <div class="seg-group" id="statusSeg">
+            <div class="seg-item active" onclick="setStatus('就餐',this)">就餐</div>
+            <div class="seg-item" onclick="setStatus('请假',this)">请假</div>
+        </div>
+    </div>
+
+    <input type="text" id="remark" placeholder="备注（选填）">
+    <button onclick="addSign()">提交打卡</button>
+</div>
+
+<!-- 筛选 & 统计 -->
+<div class="box">
+    <h3>筛选 & 按月统计</h3>
+    <div class="date-row">
+        <select id="queryY"></select>
+        <select id="queryM"></select>
+        <select id="queryD"></select>
+    </div>
+    <button onclick="filterData()">按日期查询</button>
+    <button class="btn-gray" onclick="renderList()">显示全部记录</button>
+
+    <div style="margin-top:10px;">
+        <input type="month" id="selMonth">
+        <button class="btn-orange" onclick="calcMonthStat()">选择月份统计</button>
+    </div>
+    <div class="stat" id="statBox">暂无统计数据</div>
+</div>
+
+<!-- 记录管理 -->
+<div class="box">
+    <h3>记录管理</h3>
+    <div class="row">
+        <button class="btn-green" onclick="exportCsv()">导出 CSV</button>
+        <button onclick="backupData()">备份数据</button>
+    </div>
+    <div class="row">
+        <button onclick="restoreData()">导入数据</button>
+        <button class="btn-red" onclick="clearAll()">清空全部</button>
+    </div>
+    <div class="tip">数据存在本设备浏览器中，换手机或清缓存会丢失，建议定期点“备份数据”。</div>
+    <div id="list"></div>
+</div>
+
+<!-- 复制弹窗 -->
+<div class="box" id="copyBox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99;padding:20px;overflow:auto;">
+    <div style="background:#fff;border-radius:12px;padding:15px;">
+        <h4>复制内容（长按全选可复制）</h4>
+        <textarea id="copyText" readonly></textarea>
+        <button onclick="hideCopyBox()">关闭</button>
+    </div>
+</div>
+
+<script>
+var storageKey = "xiaofanzhuo_sign_v10";
+var signList = [];
+var fixedName = "田若汐";
+var curMeal = "午餐";
+var curStatus = "就餐";
+
+function pad(n){ return n < 10 ? "0"+n : ""+n; }
+function getMaxDay(y,m){ return new Date(y, m, 0).getDate(); }
+
+function buildYearSel(id, def){
+    var sel=document.getElementById(id); sel.innerHTML="";
+    for(var y=2024;y<=2030;y++){var o=document.createElement("option");o.value=y;o.innerText=y+"年";if(y===def)o.selected=true;sel.appendChild(o);}
+}
+function buildMonthSel(id, def){
+    var sel=document.getElementById(id); sel.innerHTML="";
+    for(var m=1;m<=12;m++){var o=document.createElement("option");o.value=pad(m);o.innerText=m+"月";if(m===def)o.selected=true;sel.appendChild(o);}
+}
+function buildDaySel(id, def, max){
+    var sel=document.getElementById(id); sel.innerHTML="";
+    for(var d=1;d<=max;d++){var o=document.createElement("option");o.value=pad(d);o.innerText=d+"日";if(d===def)o.selected=true;sel.appendChild(o);}
+}
+function bindDateChange(yId,mId,dId){
+    var yE=document.getElementById(yId),mE=document.getElementById(mId),dE=document.getElementById(dId);
+    function refreshDay(){
+        var yy=Number(yE.value),mm=Number(mE.value),dd=Number(dE.value),max=getMaxDay(yy,mm);
+        if(dd>max)dd=max; buildDaySel(dId,dd,max);
+    }
+    yE.onchange=refreshDay; mE.onchange=refreshDay;
+}
+function refreshSignDate(y,m,d){buildYearSel("signY",y);buildMonthSel("signM",m);buildDaySel("signD",d,getMaxDay(y,m));bindDateChange("signY","signM","signD");}
+function refreshQueryDate(y,m,d){buildYearSel("queryY",y);buildMonthSel("queryM",m);buildDaySel("queryD",d,getMaxDay(y,m));bindDateChange("queryY","queryM","queryD");}
+
+function setMeal(val,el){curMeal=val;var a=document.getElementById("mealSeg").children;for(var i=0;i<a.length;i++)a[i].className="seg-item";el.className="seg-item active";}
+function setStatus(val,el){curStatus=val;var a=document.getElementById("statusSeg").children;for(var i=0;i<a.length;i++)a[i].className="seg-item";el.className="seg-item active";}
+
+function resetToday(){var n=new Date();refreshSignDate(n.getFullYear(),n.getMonth()+1,n.getDate());}
+
+function addSign(){
+    var y=document.getElementById("signY").value,m=document.getElementById("signM").value,d=document.getElementById("signD").value;
+    var dateStr=y+"-"+m+"-"+d;
+    var remark=document.getElementById("remark").value.trim();
+    var dup=signList.some(function(x){return x.date===dateStr&&x.meal===curMeal;});
+    if(dup){alert(fixedName+" "+dateStr+" 的"+curMeal+"已打卡，不可重复记录。");return;}
+    signList.push({name:fixedName,date:dateStr,meal:curMeal,status:curStatus,remark:remark,ts:Date.now()});
+    saveData();renderList();
+    document.getElementById("remark").value="";
+    alert("打卡成功");
+}
+
+function saveData(){localStorage.setItem(storageKey,JSON.stringify(signList));}
+function loadData(){var s=localStorage.getItem(storageKey);if(s){try{signList=JSON.parse(s);}catch(e){signList=[];}}}
+
+function renderList(filterDate){
+    var box=document.getElementById("list");
+    var list=filterDate?signList.filter(function(x){return x.date===filterDate;}):signList.slice();
+    list.sort(function(a,b){if(a.date!==b.date)return b.date.localeCompare(a.date);return a.meal==="午餐"?-1:1;});
+    if(list.length===0){box.innerHTML="<div style='padding:10px;color:#999;'>暂无记录</div>";return;}
+    var html="";
+    for(var i=0;i<list.length;i++){
+        var it=list[i];
+        var mc=it.meal==="午餐"?"badge-lunch":"badge-dinner";
+        var sc=it.status==="就餐"?"badge-eat":"badge-leave";
+        html+="<div class='item'><div class='info'><b>"+it.date+"</b> "
+            +"<span class='badge "+mc+"'>"+it.meal+"</span> "
+            +"<span class='badge "+sc+"'>"+it.status+"</span>"
+            +(it.remark?" | "+it.remark:"")
+            +"</div><button style='width:auto;padding:6px 12px;background:#ff3b30;font-size:13px;margin:0;' onclick='delSign("+it.ts+")'>删除</button></div>";
+    }
+    box.innerHTML=html;
+}
+
+function delSign(ts){
+    if(!confirm("确定删除这条打卡记录？"))return;
+    if(!confirm("二次确认：删除后无法恢复，仍要删除吗？"))return;
+    signList=signList.filter(function(x){return x.ts!==ts;});
+    saveData();renderList();
+}
+
+function filterData(){
+    var y=document.getElementById("queryY").value,m=document.getElementById("queryM").value,d=document.getElementById("queryD").value;
+    renderList(y+"-"+m+"-"+d);
+}
+
+function calcMonthStat(){
+    var val=document.getElementById("selMonth").value;
+    if(!val){alert("请先选择月份");return;}
+    var list=signList.filter(function(x){return x.date.indexOf(val)===0;});
+    var total=list.length,eat=0,leave=0,lunch=0,dinner=0;
+    for(var i=0;i<list.length;i++){
+        if(list[i].status==="就餐")eat++;else leave++;
+        if(list[i].meal==="午餐")lunch++;else dinner++;
+    }
+    document.getElementById("statBox").innerHTML="<b>"+val+" 统计</b><br>总打卡："+total+" 次<br>就餐："+eat+" 次 &nbsp; 请假："+leave+" 次<br>午餐："+lunch+" 次 &nbsp; 晚餐："+dinner+" 次";
+}
+
+function exportCsv(){
+    if(signList.length===0){alert("暂无数据");return;}
+    var csv="\uFEFF姓名,日期,餐次,状态,备注\n";
+    for(var i=0;i<signList.length;i++){var it=signList[i];csv+=it.name+","+it.date+","+it.meal+","+it.status+","+(it.remark||"")+"\n";}
+    showCopyBox(csv);
+}
+function backupData(){showCopyBox(JSON.stringify(signList));}
+function restoreData(){
+    var text=prompt("请粘贴之前备份的 JSON 内容");
+    if(!text)return;
+    try{var arr=JSON.parse(text);if(!Array.isArray(arr)){alert("格式错误");return;}
+        signList=arr;saveData();renderList();alert("恢复成功，共 "+signList.length+" 条记录");
+    }catch(e){alert("备份格式错误，请确认粘贴内容完整");}
+}
+function clearAll(){
+    if(!confirm("确定清空全部记录？此操作不可恢复！"))return;
+    if(!confirm("再次确认：真的要清空全部 "+signList.length+" 条记录吗？"))return;
+    signList=[];saveData();renderList();
+    document.getElementById("statBox").innerHTML="暂无统计数据";
+    alert("已全部清空");
+}
+
+function showCopyBox(text){
+    document.getElementById("copyBox").style.display="block";
+    var ta=document.getElementById("copyText");ta.value=text;ta.focus();ta.select();
+    try{document.execCommand("copy");}catch(e){}
+}
+function hideCopyBox(){document.getElementById("copyBox").style.display="none";}
+
+window.onload=function(){
+    var now=new Date(),y=now.getFullYear(),m=now.getMonth()+1,d=now.getDate();
+    refreshSignDate(y,m,d);refreshQueryDate(y,m,d);
+    document.getElementById("selMonth").value=y+"-"+pad(m);
+    loadData();renderList();
+};
+
+// 注册 service worker（仅在线部署 https 下生效；本地打开会自动忽略，不影响使用）
+if('serviceWorker' in navigator){
+    try{ navigator.serviceWorker.register('./sw.js'); }catch(e){}
+}
+</script>
+</body>
+</html>
